@@ -1,43 +1,43 @@
-# jmespath.rb
+# burtpath
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/trevorrowe/jmespath.rb?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/trevorrowe/jmespath.rb.png?branch=master)](https://travis-ci.org/trevorrowe/jmespath.rb)
+A fork of [jmespath.rb](https://github.com/jmespath/jmespath.rb), which is an implementation of [JMESPath](https://github.com/boto/jmespath) for Ruby. This implementation supports searching JSON documents as well as native Ruby data structures.
 
-An implementation of [JMESPath](https://github.com/boto/jmespath) for Ruby. This implementation supports searching JSON documents as well as native Ruby data structures.
+This fork aims to be a drop in replacement for `jmespath.rb` and all uses of "burtpath" and "BurtPath" are just aliases for the equivalents in `jmespath.rb`. The interpreter has been completely rewritten to increase performance by orders of magnitude.
 
 ## Installation
 
 ```
-$ gem install jmespath
+$ gem install burtpath
 ```
 
 ## Basic Usage
 
-Call `JMESPath.search` with a valid JMESPath search expression and data to search. It will return the extracted values.
+Call `BurtPath.search` with a valid JMESPath search expression and data to search. It will return the extracted values.
 
 ```ruby
-require 'jmespath'
+require 'burtpath'
 
-JMESPath.search('foo.bar', { foo: { bar: { baz: "value" }}})
+BurtPath.search('foo.bar', { foo: { bar: { baz: "value" }}})
 #=> {baz: "value"}
 ```
 
 In addition to accessing nested values, you can exact values from arrays.
 
 ```ruby
-JMESPath.search('foo.bar[0]', { foo: { bar: ["one", "two"] }})
+BurtPath.search('foo.bar[0]', { foo: { bar: ["one", "two"] }})
 #=> "one"
 
-JMESPath.search('foo.bar[-1]', { foo: { bar: ["one", "two"] }})
+BurtPath.search('foo.bar[-1]', { foo: { bar: ["one", "two"] }})
 #=> "two"
 
-JMESPath.search('foo[*].name', {foo: [{name: "one"}, {name: "two"}]})
+BurtPath.search('foo[*].name', {foo: [{name: "one"}, {name: "two"}]})
 #=> ["one", "two"]
 ```
 
 If you search for keys no present in the data, then `nil` is returned.
 
 ```ruby
-JMESPath.search('foo.bar', { abc: "mno" })
+BurtPath.search('foo.bar', { abc: "mno" })
 #=> nil
 ```
 
@@ -48,13 +48,13 @@ JMESPath.search('foo.bar', { abc: "mno" })
 The examples above show JMESPath expressions used to search over hashes with symbolized keys. You can use search also for hashes with string keys or Struct objects.
 
 ```ruby
-JMESPath.search('foo.bar', { "foo" => { "bar" => "value" }})
+BurtPath.search('foo.bar', { "foo" => { "bar" => "value" }})
 #=> "value"
 
 data = Struct.new(:foo).new(
   Struct.new(:bar).new("value")
 )
-JMESPath.search('foo.bar', data)
+BurtPath.search('foo.bar', data)
 #=> "value"
 ```
 
@@ -63,16 +63,16 @@ JMESPath.search('foo.bar', data)
 If you have JSON documents on disk, or IO objects that contain JSON documents, you can pass them as the data argument.
 
 ```ruby
-JMESPath.search(expression, Pathname.new('/path/to/data.json'))
+BurtPath.search(expression, Pathname.new('/path/to/data.json'))
 
 File.open('/path/to/data.json', 'r', encoding:'UTF-8') do |file|
-  JMESPath.search(expression, file)
+  BurtPath.search(expression, file)
 end
 ```
 
 ## Links of Interest
 
-* [Release Notes](https://github.com/trevorrowe/jmespath.rb/releases)
+* [Release Notes](https://github.com/burtcorp/burtpath/releases)
 * [License](http://www.apache.org/licenses/LICENSE-2.0)
 * [JMESPath Tutorial](http://jmespath.org/tutorial.html)
 * [JMESPath Specification](http://jmespath.org/specification.html)
@@ -82,6 +82,7 @@ end
 This library is distributed under the apache license, version 2.0
 
 > Copyright 2014 Trevor Rowe; All rights reserved.
+> Copyright 2015 Burt AB; All rights reserved.
 >
 > Licensed under the apache license, version 2.0 (the "license");
 > You may not use this library except in compliance with the license.
