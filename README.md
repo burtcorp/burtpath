@@ -1,4 +1,4 @@
-# burtpath
+# BurtPath
 
 A fork of [jmespath.rb](https://github.com/jmespath/jmespath.rb), which is an implementation of [JMESPath](https://github.com/boto/jmespath) for Ruby. This implementation supports searching JSON documents as well as native Ruby data structures.
 
