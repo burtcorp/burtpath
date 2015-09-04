@@ -1,0 +1,3 @@
+require 'jmespath'
+
+BurtPath = JMESPath
