@@ -1,8 +1,5 @@
-desc 'Builds the gem'
-task 'gem:build' do
-  sh("gem build jmespath.gemspec")
-end
+require 'bundler/gem_helper'
 
-task 'gem:push' do
-  sh("gem push jmespath-#{$VERSION}.gem")
+namespace 'gem' do
+  Bundler::GemHelper.install_tasks
 end
