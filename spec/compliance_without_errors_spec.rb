@@ -14,7 +14,7 @@ describe 'Compliance' do
 
             if test_case['error']
 
-              if %w[invalid-type invalid-arity runtime].include?(test_case['error'])
+              if %w[invalid-type invalid-arity].include?(test_case['error'])
                 it "the expression #{test_case['expression'].inspect} returns nil if disable_visit_errors is true" do
                   
                   result = PARSER.parse(test_case['expression']).visit(scenario['given'])
@@ -24,6 +24,7 @@ describe 'Compliance' do
                 it "the expression #{test_case['expression'].inspect} raises a #{test_case['error']} error when parsing even if disable_visit_errors is true" do
 
                   error_class = case test_case['error']
+                    when 'runtime' then JMESPath::Errors::RuntimeError
                     when 'syntax' then JMESPath::Errors::SyntaxError
                     when 'unknown-function' then JMESPath::Errors::UnknownFunctionError
                     else raise "unhandled error type #{test_case['error']}"
