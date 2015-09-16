@@ -11,6 +11,7 @@ module JMESPath
       def visit(value)
         if String === value || Array === value
           start, stop, step = adjust_slice(value.size, @start, @stop, @step)
+          return unless start && stop && step
           result = []
           if step > 0
             i = start
@@ -45,7 +46,7 @@ module JMESPath
         if step.nil?
           step = 1
         elsif step == 0
-          raise Errors::RuntimeError, 'slice step cannot be 0'
+          return runtime_error('slice step cannot be 0')
         end
 
         if start.nil?
@@ -73,6 +74,16 @@ module JMESPath
         else
           endpoint
         end
+      end
+
+      def runtime_error(message)
+        raise Errors::RuntimeError, message
+      end
+    end
+
+    class NonRaisingSlice < Slice
+      def runtime_error(message)
+        return nil
       end
     end
 

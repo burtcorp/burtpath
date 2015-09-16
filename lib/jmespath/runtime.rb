@@ -49,6 +49,11 @@ module JMESPath
     #   searches, so it's highly recommended if you're using the same expression
     #   multiple times and have not disabled caching. Defaults to `true`.
     #
+    # @option options [Boolean] :disable_visit_errors (false) When `true`,
+    #   no errors will be raised during runtime processing. Parse errors
+    #   will still be raised, but unexpected data sent to visit will
+    #   result in nil being returned.
+    #
     # @option options [Parser] :parser
     #
     def initialize(options = {})
@@ -68,7 +73,7 @@ module JMESPath
     private
 
     def create_parser(options)
-      parser = Parser.new
+      parser = Parser.new(:disable_visit_errors => !!options[:disable_visit_errors])
       unless options[:optimize_expression] == false
         parser = OptimizingParser.new(parser)
       end

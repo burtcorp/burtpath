@@ -35,6 +35,7 @@ module JMESPath
     autoload :ArrayProjection, 'jmespath/nodes/projection'
     autoload :ObjectProjection, 'jmespath/nodes/projection'
     autoload :Slice, 'jmespath/nodes/slice'
+    autoload :NonRaisingSlice, 'jmespath/nodes/slice'
     autoload :Subexpression, 'jmespath/nodes/subexpression'
   end
 end

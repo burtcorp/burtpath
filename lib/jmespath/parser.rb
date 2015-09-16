@@ -20,6 +20,7 @@ module JMESPath
     # @option options [Lexer] :lexer
     def initialize(options = {})
       @lexer = options[:lexer] || Lexer.new()
+      @disable_visit_errors = options[:disable_visit_errors]
     end
 
     # @param [String<JMESPath>] expression
@@ -188,7 +189,7 @@ module JMESPath
         end
       end
       stream.next
-      Nodes::Function.create(name, args)
+      Nodes::Function.create(name, args, :disable_visit_errors => @disable_visit_errors)
     end
 
     def led_or(stream, left)
@@ -219,6 +220,8 @@ module JMESPath
         Nodes::Index.new(parts[0])
       elsif pos > 2
         raise Errors::SyntaxError, 'invalid array slice syntax: too many colons'
+      elsif @disable_visit_errors
+        Nodes::NonRaisingSlice.new(*parts)
       else
         Nodes::Slice.new(*parts)
       end
