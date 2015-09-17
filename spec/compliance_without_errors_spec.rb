@@ -24,7 +24,7 @@ describe 'Compliance' do
                 it "the expression #{test_case['expression'].inspect} raises a #{test_case['error']} error when parsing even if disable_visit_errors is true" do
 
                   error_class = case test_case['error']
-                    when 'runtime' then JMESPath::Errors::RuntimeError
+                    when 'invalid-value' then JMESPath::Errors::InvalidValueError
                     when 'syntax' then JMESPath::Errors::SyntaxError
                     when 'unknown-function' then JMESPath::Errors::UnknownFunctionError
                     else raise "unhandled error type #{test_case['error']}"

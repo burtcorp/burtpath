@@ -6,7 +6,7 @@ module JMESPath
         @start = start
         @stop = stop
         @step = step
-        raise Errors::RuntimeError.new('slice step cannot be 0') if @step == 0
+        raise Errors::InvalidValueError.new('slice step cannot be 0') if @step == 0
       end
 
       def visit(value)
