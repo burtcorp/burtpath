@@ -16,7 +16,7 @@ describe 'Compliance' do
               it "the expression #{test_case['expression'].inspect} raises a #{test_case['error']} error" do
 
                 error_class = case test_case['error']
-                  when 'runtime' then JMESPath::Errors::RuntimeError
+                  when 'invalid-value' then JMESPath::Errors::InvalidValueError
                   when 'syntax' then JMESPath::Errors::SyntaxError
                   when 'invalid-type' then JMESPath::Errors::InvalidTypeError
                   when 'invalid-arity' then JMESPath::Errors::InvalidArityError

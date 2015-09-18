@@ -6,11 +6,13 @@ module JMESPath
         @start = start
         @stop = stop
         @step = step
+        raise Errors::InvalidValueError.new('slice step cannot be 0') if @step == 0
       end
 
       def visit(value)
         if String === value || Array === value
           start, stop, step = adjust_slice(value.size, @start, @stop, @step)
+          return unless start && stop && step
           result = []
           if step > 0
             i = start
@@ -44,8 +46,6 @@ module JMESPath
       def adjust_slice(length, start, stop, step)
         if step.nil?
           step = 1
-        elsif step == 0
-          raise Errors::RuntimeError, 'slice step cannot be 0'
         end
 
         if start.nil?

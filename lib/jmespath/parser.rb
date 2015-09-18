@@ -20,6 +20,7 @@ module JMESPath
     # @option options [Lexer] :lexer
     def initialize(options = {})
       @lexer = options[:lexer] || Lexer.new()
+      @disable_visit_errors = options[:disable_visit_errors]
     end
 
     # @param [String<JMESPath>] expression
@@ -188,7 +189,7 @@ module JMESPath
         end
       end
       stream.next
-      Nodes::Function.create(name, args)
+      Nodes::Function.create(name, args, :disable_visit_errors => @disable_visit_errors)
     end
 
     def led_or(stream, left)
