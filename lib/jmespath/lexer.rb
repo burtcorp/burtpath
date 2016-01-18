@@ -16,6 +16,7 @@ module JMESPath
       '\*'                         => :star,
       '\[\]'                       => :flatten,
       '-?\d+'                      => :number,
+      '&&'                         => :and,
       '\|\|'                       => :or,
       '\|'                         => :pipe,
       '\[\?'                       => :filter,
@@ -38,6 +39,7 @@ module JMESPath
       '<'                          => :comparator,
       '>'                          => :comparator,
       '[ \t]'                      => :skip,
+      '!'                          => :not,
     }.each.with_index do |(pattern, type), n|
       TOKEN_PATTERNS[n] = pattern
       TOKEN_TYPES[n] = type

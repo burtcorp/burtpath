@@ -1,0 +1,30 @@
+[{
+    "given":
+         {"t": true, "f": false, "n": null, "s": "string"},
+     "cases": [
+         {
+            "expression": "!t",
+            "result": false
+         },
+         {
+            "expression": "!f",
+            "result": true
+         },
+         {
+            "expression": "!`true`",
+            "result": false
+         },
+         {
+            "expression": "!`false`",
+            "result": true
+         },
+         {
+            "expression": "!n",
+            "result": true
+         },
+         {
+            "expression": "!s",
+            "result": false
+         }
+     ]
+}]

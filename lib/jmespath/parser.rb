@@ -36,8 +36,8 @@ module JMESPath
 
     # @api private
     def method_missing(method_name, *args)
-      if matches = method_name.match(/^(nud_|led_)(.*)/)
-        raise Errors::SyntaxError, "unexpected token #{matches[2]}"
+      if matches = method_name.to_s.match(/^(nud_|led_)(.*)/)
+        raise Errors::SyntaxError, "unexpected token: #{matches[2]}"
       else
         super
       end
@@ -60,9 +60,24 @@ module JMESPath
       CURRENT_NODE
     end
 
+    def nud_lparen(stream)
+      stream.next
+      expr = expr(stream, 0)
+      unless stream.token.type == :rparen
+        raise Errors::SyntaxError, "expected token rparen, got #{stream.token.type}"
+      end
+      stream.next
+      expr
+    end
+
     def nud_expref(stream)
       stream.next
       Nodes::Expression.new(expr(stream, 2))
+    end
+
+    def nud_not(stream)
+      stream.next
+      Nodes::Not.new(expr(stream, 0))
     end
 
     def nud_filter(stream)
@@ -196,6 +211,12 @@ module JMESPath
       stream.next
       right = expr(stream, Token::BINDING_POWER[:or])
       Nodes::Or.new(left, right)
+    end
+
+    def led_and(stream, left)
+      stream.next
+      right = expr(stream, Token::BINDING_POWER[:and])
+      Nodes::And.new(left, right)
     end
 
     def led_pipe(stream, left)
