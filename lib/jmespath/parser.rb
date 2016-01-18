@@ -198,6 +198,12 @@ module JMESPath
       Nodes::Or.new(left, right)
     end
 
+    def led_and(stream, left)
+      stream.next
+      right = expr(stream, Token::BINDING_POWER[:and])
+      Nodes::And.new(left, right)
+    end
+
     def led_pipe(stream, left)
       stream.next
       right = expr(stream, Token::BINDING_POWER[:pipe])

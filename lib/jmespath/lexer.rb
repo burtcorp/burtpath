@@ -16,6 +16,7 @@ module JMESPath
       '\*'                         => :star,
       '\[\]'                       => :flatten,
       '-?\d+'                      => :number,
+      '&&'                         => :and,
       '\|\|'                       => :or,
       '\|'                         => :pipe,
       '\[\?'                       => :filter,

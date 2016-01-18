@@ -18,6 +18,7 @@ module JMESPath
       end
     end
 
+    autoload :And, 'jmespath/nodes/and'
     autoload :Comparator, 'jmespath/nodes/comparator'
     autoload :Condition, 'jmespath/nodes/condition'
     autoload :Current, 'jmespath/nodes/current'

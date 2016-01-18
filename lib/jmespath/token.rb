@@ -21,6 +21,7 @@ module JMESPath
       :pipe              => 1,
       :comparator        => 2,
       :or                => 5,
+      :and               => 5,
       :flatten           => 6,
       :star              => 20,
       :dot               => 40,

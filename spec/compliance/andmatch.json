@@ -1,0 +1,58 @@
+[{
+    "given":
+        {"outer": {"foo": "foo", "bar": "bar", "baz": "baz"}, "primitives": {"t": true, "f": false, "n": null}},
+     "cases": [
+         {
+            "expression": "outer.foo && outer.bar",
+            "result": "bar"
+         },
+         {
+            "expression": "outer.foo&&outer.bar",
+            "result": "bar"
+         },
+         {
+            "expression": "outer.bar && outer.baz",
+            "result": "baz"
+         },
+         {
+            "expression": "outer.bar&&outer.baz",
+            "result": "baz"
+         },
+         {
+            "expression": "outer.bad && outer.foo",
+            "result": null
+         },
+         {
+            "expression": "outer.bad&&outer.foo",
+            "result": null
+         },
+         {
+            "expression": "outer.foo && outer.bad",
+            "result": null
+         },
+         {
+            "expression": "outer.foo&&outer.bad",
+            "result": null
+         },
+         {
+            "expression": "outer.bad && outer.alsobad",
+            "result": null
+         },
+         {
+            "expression": "outer.bad&&outer.alsobad",
+            "result": null
+         },
+         {
+            "expression": "outer.foo && primitives.t",
+            "result": true
+         },
+         {
+            "expression": "outer.foo && primitives.f",
+            "result": false
+         },
+         {
+            "expression": "outer.foo && primitives.n",
+            "result": null
+         }
+     ]
+}]
