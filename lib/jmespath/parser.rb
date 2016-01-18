@@ -36,8 +36,8 @@ module JMESPath
 
     # @api private
     def method_missing(method_name, *args)
-      if matches = method_name.match(/^(nud_|led_)(.*)/)
-        raise Errors::SyntaxError, "unexpected token #{matches[2]}"
+      if matches = method_name.to_s.match(/^(nud_|led_)(.*)/)
+        raise Errors::SyntaxError, "unexpected token: #{matches[2]}"
       else
         super
       end
