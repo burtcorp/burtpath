@@ -60,6 +60,16 @@ module JMESPath
       CURRENT_NODE
     end
 
+    def nud_lparen(stream)
+      stream.next
+      expr = expr(stream, 0)
+      unless stream.token.type == :rparen
+        raise Errors::SyntaxError, "expected token rparen, got #{stream.token.type}"
+      end
+      stream.next
+      expr
+    end
+
     def nud_expref(stream)
       stream.next
       Nodes::Expression.new(expr(stream, 2))

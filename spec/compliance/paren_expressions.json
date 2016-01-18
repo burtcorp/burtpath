@@ -1,0 +1,32 @@
+[{
+  "given": {
+    "foo": "foo",
+    "bar": "bar"
+  },
+  "cases": [
+    {
+      "expression": "(foo)",
+      "result": "foo"
+    },
+    {
+      "expression": "(bar)",
+      "result": "bar"
+    },
+    {
+      "expression": "((foo))",
+      "result": "foo"
+    },
+    {
+      "expression": "(invalid)",
+      "result": null
+    },
+    {
+      "expression": "(foo",
+      "error": "syntax"
+    },
+    {
+      "expression": "foo)",
+      "error": "syntax"
+    }
+  ]
+}]
