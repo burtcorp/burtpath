@@ -75,6 +75,11 @@ module JMESPath
       Nodes::Expression.new(expr(stream, 2))
     end
 
+    def nud_not(stream)
+      stream.next
+      Nodes::Not.new(expr(stream, 0))
+    end
+
     def nud_filter(stream)
       led_filter(stream, CURRENT_NODE)
     end
